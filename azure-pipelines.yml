@@ -1,19 +1,39 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
 trigger:
 - main
 
+schedules:
+- cron: '*/5 * * * *'
+  branches:
+    - main
+
 pool:
-  vmImage: ubuntu-latest
+  vmImage: 'windows-latest'
 
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+jobs:
+- job: RunDbtModels
+  displayName: 'Run dbt Models'
+  steps:
+  - checkout: self
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '3.x'
+      addToPath: true
+
+  - script: |
+      python -m pip install --upgrade pip
+      pip install dbt
+      pip install dbt-snowflake
+    displayName: 'Install dbt and dependencies'
+
+  - script: |
+      dbt deps --profiles-dir $(Build.SourcesDirectory)\dfz --project-dir $(Build.SourcesDirectory)\dfz
+    displayName: 'Install dbt dependencies'
+
+  - script: |
+      dbt run --profiles-dir $(Build.SourcesDirectory)\dfz --project-dir $(Build.SourcesDirectory)\dfz
+    displayName: 'Run dbt models'
+
+  - script: |
+      dbt test --profiles-dir $(Build.SourcesDirectory)\dfz --project-dir $(Build.SourcesDirectory)\dfz
+    displayName: 'Run dbt tests'
