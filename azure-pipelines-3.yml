@@ -1,0 +1,40 @@
+trigger:
+- main
+
+schedules:
+- cron: '*/5 * * * *'
+  displayName: 'Run every 5 minutes'
+  branches:
+    - main
+
+pool:
+  vmImage: 'windows-latest'
+
+jobs:
+- job: RunDbtModels
+  displayName: 'Run dbt Models'
+  steps:
+  - checkout: self
+
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '3.x'
+      addToPath: true
+
+  - script: |
+      python -m pip install --upgrade pip
+      pip install dbt
+      pip install dbt-snowflake
+    displayName: 'Install dbt and dependencies'
+
+  - script: |
+      dbt deps --profiles-dir $(Build.SourcesDirectory)\dfz --project-dir $(Build.SourcesDirectory)\dfz
+    displayName: 'Install dbt dependencies'
+
+  - script: |
+      dbt run --profiles-dir $(Build.SourcesDirectory)\dfz --project-dir $(Build.SourcesDirectory)\dfz
+    displayName: 'Run dbt models'
+
+  - script: |
+      dbt test --profiles-dir $(Build.SourcesDirectory)\dfz --project-dir $(Build.SourcesDirectory)\dfz
+    displayName: 'Run dbt tests'
