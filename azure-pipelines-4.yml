@@ -3,16 +3,11 @@ trigger:
 
 schedules:
 - cron: '*/5 * * * *'
-  displayName: 'Run every 5 minutes'
-  branches:
-    - main
-
-pool:
-  vmImage: 'windows-latest'
 
 jobs:
-- job: RunDbtModels
-  displayName: 'Run dbt Models'
+- job: run-dbt
+  pool:
+    vmImage: 'windows-latest'
   steps:
   - checkout: self
 
