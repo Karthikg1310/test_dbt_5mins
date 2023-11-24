@@ -10,9 +10,14 @@ schedules:
 jobs:
 - job: RunDbtModels
   pool:
-    vmImage: 'ubuntu-latest'
+    vmImage: 'windows-latest'
   
   steps:
+  # ... other steps ...
+
+      - name: Run dbt models in WSL
+        run: |
+          wsl dbt run --profiles-dir /mnt/c/$(Build.Repository.LocalPath)/dfz --project-dir /mnt/c/$(Build.Repository.LocalPath)/dfz
   - checkout: self
 
   - task: UsePythonVersion@0
