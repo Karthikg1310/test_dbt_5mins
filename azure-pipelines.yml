@@ -10,7 +10,7 @@ schedules:
 jobs:
 - job: RunDbtModels
   pool:
-    vmImage: 'ubuntu-latest'
+    vmImage: 'windows-latest'
   
   steps:
   - checkout: self
