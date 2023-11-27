@@ -1,4 +1,4 @@
-YAML Script for DBT:
+#YAML Script for DBT:
 
 trigger:
 - main
