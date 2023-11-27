@@ -2,8 +2,8 @@ version: 2
 
 sources:
   - name: customers
-    database: dfz_demo  
-    schema: dbt_core  
+    database: database_source  
+    schema: schema_source  
     tables:
       - name: cust_info
       - name: ticket_data
