@@ -1,8 +1,4 @@
-#YAML Script for DBT:
 trigger:
-- none
-
-pr:
 - none
 
 schedules:
@@ -11,7 +7,7 @@ schedules:
   branches:
     include:
     - main
-    
+
 jobs:
 - job: RunDbtModels
   pool:
