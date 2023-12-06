@@ -1,0 +1,17 @@
+name: Schedule Pipeline
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+
+jobs:
+  trigger_pipeline:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Trigger Azure DevOps Pipeline
+      uses: Azure/pipelines@v1
+      with:
+        azure-devops-project-url: 'https://dev.azure.com/karthikgundu/dbt_azdevops/'
+        azure-devops-token: ${{ secrets.AZURE_DEVOPS_TOKEN }}
+        azure-devops-pipeline-id: '47'
