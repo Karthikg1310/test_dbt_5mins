@@ -3,10 +3,11 @@ trigger:
 
 schedules:
 - cron: '*/5 * * * *'
-  displayName: 'Run every 5 minutes'
+  displayName: 'Every 5 minutes'
   branches:
     include:
-    - main
+    - '*'
+  always: true
 
 jobs:
 - job: RunDbtModels
