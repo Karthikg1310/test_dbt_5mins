@@ -5,13 +5,16 @@ on:
     - cron: '*/5 * * * *'
 
 jobs:
-  trigger_pipeline:
+  trigger-azure-devops:
     runs-on: ubuntu-latest
-
+    needs: run-dbt
     steps:
-    - name: Trigger Azure DevOps Pipeline
-      uses: Azure/pipelines@v1
-      with:
-        azure-devops-project-url: 'https://dev.azure.com/karthikgundu/dbt_azdevops/'
-        azure-devops-token: ${{ secrets.AZURE_DEVOPS_TOKEN }}
-        azure-devops-pipeline-id: '47'
+      - name: Trigger Azure DevOps Pipeline
+        uses: Azure/devops-rest-api@v1
+        with:
+         connection: azure-devops
+         azure-devops-pat: ${{ secrets.AZURE_DEVOPS_TOKEN }}
+         azure-devops-project-url: 'https://dev.azure.com/karthikgundu'
+         az-devops-project: 'dbt_azdevops'
+         azure-devops-pipeline-id: '47'
+         az-devops-branch: 'main'
