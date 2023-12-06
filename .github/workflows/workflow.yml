@@ -36,16 +36,3 @@ jobs:
       - name: Run dbt tests
         run: |
           dbt test --profiles-dir ${{ github.workspace }}\dfz --project-dir ${{ github.workspace }}\dfz
-          
-  trigger-azure-devops:
-    runs-on: ubuntu-latest
-    needs: run-dbt
-    steps:
-      - name: Trigger Azure DevOps Pipeline
-        with:
-         connection: azure-devops
-         azure-devops-pat: ${{ secrets.AZURE_DEVOPS_TOKEN }}
-         azure-devops-project-url: 'https://dev.azure.com/karthikgundu'
-         az-devops-project: 'dbt_azdevops'
-         azure-devops-pipeline-id: '47'
-         az-devops-branch: 'main'
