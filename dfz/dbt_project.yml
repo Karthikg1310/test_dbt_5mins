@@ -35,3 +35,11 @@ models:
     # Config indicated by + and applies to all files under models/example/
     example:
       +materialized: table
+vars:
+  unit_tests_config:
+    debug: false
+    input_format: sql
+    column_separator: ","
+    line_separator: "\n"
+    type_separator: "::"
+    
