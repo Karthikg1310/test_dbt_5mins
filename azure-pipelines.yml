@@ -11,10 +11,7 @@ schedules:
   branches:
     include:
     - main
-
-pr:
-- none
-
+    
 jobs:
 - job: RunDbtModels
   pool:
