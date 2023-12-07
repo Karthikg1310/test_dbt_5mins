@@ -1,7 +1,7 @@
 #YAML Script for DBT:
 
 schedules:
-- cron: '5 * * * * '
+- cron: '*/5 * * * *'
   displayName: "Every 5 minutes"
   branches:
     include:
@@ -15,10 +15,7 @@ jobs:
   steps:
   - checkout: self
 
-  - task: UsePythonVersion@0
-    inputs:
-      versionSpec: '3.x'
-      addToPath: true
+
 
   - script: |
       python -m pip install --upgrade pip
