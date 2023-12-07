@@ -1,8 +1,10 @@
+#YAML Script for DBT:
+
 trigger:
 - main
 
 schedules:
-- cron: "*/5 * * * *"
+- cron: '*/5 * * * *'
   displayName: "Every 5 minutes"
   branches:
     include:
@@ -11,10 +13,10 @@ schedules:
 jobs:
 - job: RunDbtModels
   pool:
-    vmImage: 'windows-latest'
+    vmImage: 'ubuntu-latest'
+  
   steps:
   - checkout: self
-    persistCredentials: true
 
   - task: UsePythonVersion@0
     inputs:
@@ -27,13 +29,14 @@ jobs:
       pip install dbt-snowflake
     displayName: 'Install dbt and dependencies'
 
-  - script: 'dbt deps --profiles-dir $(System.DefaultWorkingDirectory)\dfz --project-dir $(System.DefaultWorkingDirectory)\dfz'
+  - script: |
+      dbt deps --profiles-dir $(Build.Repository.LocalPath)/dfz --project-dir $(Build.Repository.LocalPath)/dfz
     displayName: 'Install dbt dependencies'
 
   - script: |
-      dbt run --profiles-dir $(System.DefaultWorkingDirectory)\dfz --project-dir $(System.DefaultWorkingDirectory)\dfz
+      dbt run --profiles-dir $(Build.Repository.LocalPath)/dfz --project-dir $(Build.Repository.LocalPath)/dfz
     displayName: 'Run dbt models'
 
   - script: |
-      dbt test --profiles-dir $(System.DefaultWorkingDirectory)\dfz --project-dir $(System.DefaultWorkingDirectory)\dfz
+      dbt test --profiles-dir $(Build.Repository.LocalPath)/dfz --project-dir $(Build.Repository.LocalPath)/dfz
     displayName: 'Run dbt tests'
