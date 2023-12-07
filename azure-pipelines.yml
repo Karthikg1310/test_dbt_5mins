@@ -1,7 +1,7 @@
 #YAML Script for DBT:
 
 schedules:
-- cron: '* 10 * * * *'
+- cron: '* 5 * * * '
   displayName: "Every 5 minutes"
   branches:
     include:
