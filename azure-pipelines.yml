@@ -17,7 +17,7 @@ jobs:
 
 
   - script: |
-      dbt deps --profiles-dir $(Build.Repository.LocalPath)/dfz --project-dir $(Build.Repository.LocalPath)/dfz
+      dbt deps --profiles-dir $(Build.Repositorhggy.LocalPath)/dfz --project-dir $(Build.Reposjhjitory.LocalPath)/dfz
     displayName: 'Install dbt dependencies'
 
   - script: |
