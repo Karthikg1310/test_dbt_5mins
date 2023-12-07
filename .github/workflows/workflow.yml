@@ -1,8 +1,6 @@
 name: Run dbt Models
 
 on:
-  schedule:
-    - cron: '*/5 * * * *'
   push:
     branches:
       - main
