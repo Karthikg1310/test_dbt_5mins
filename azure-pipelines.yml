@@ -16,13 +16,6 @@ jobs:
   - checkout: self
 
 
-
-  - script: |
-      python -m pip install --upgrade pip
-      pip install dbt
-      pip install dbt-snowflake
-    displayName: 'Install dbt and dependencies'
-
   - script: |
       dbt deps --profiles-dir $(Build.Repository.LocalPath)/dfz --project-dir $(Build.Repository.LocalPath)/dfz
     displayName: 'Install dbt dependencies'
