@@ -2,6 +2,7 @@ name: Run dbt Models
 
 on:
   schedule:
+    - cron: '*/5 * * * *'
 
 jobs:
   run-dbt:
@@ -17,6 +18,7 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: '3.x'
+     
       - name: Install dbt and dependencies
         run: |
           python -m pip install --upgrade pip
@@ -29,6 +31,7 @@ jobs:
       - name: Run dbt models
         run: |
           dbt run --profiles-dir ${{ github.workspace }}/dfz --project-dir ${{ github.workspace }}/dfz
+      
       - name: Run dbt tests
         run: |
           dbt test --profiles-dir ${{ github.workspace }}/dfz --project-dir ${{ github.workspace }}/dfz
