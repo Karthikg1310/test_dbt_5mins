@@ -1,6 +1,6 @@
 #YAML Script for DBT:
 
-trigger:
+#trigger:
 - none
 
 schedules:
