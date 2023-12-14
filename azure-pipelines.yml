@@ -25,14 +25,15 @@ jobs:
       versionSpec: '3.x'
       addToPath: true
 
-  - powershell: |
-      New-Item -ItemType Directory -Force -Path C:\dbt  # Create a directory for dbt
-      Invoke-WebRequest -Uri https://bootstrap.pypa.io/get-pip.py -OutFile C:\dbt\get-pip.py
-      python C:\dbt\get-pip.py  # Install pip
-      pip install dbt
-      pip install dbt-snowflake
-    displayName: 'Install dbt and dependencies'
-
+ - powershell: |
+    Write-Host "Installing dbt and dependencies..."
+    New-Item -ItemType Directory -Force -Path C:\dbt
+    Invoke-WebRequest -Uri https://bootstrap.pypa.io/get-pip.py -OutFile C:\dbt\get-pip.py
+    python C:\dbt\get-pip.py
+    pip install dbt
+    pip install dbt-snowflake
+    Write-Host "Installation completed."
+  displayName: 'Install dbt and dependencies'
 
   - script: |
       dbt deps --profiles-dir $(Build.Repository.LocalPath)/dfz --project-dir $(Build.Repository.LocalPath)/dfz
