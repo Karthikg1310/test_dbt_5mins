@@ -25,7 +25,7 @@ jobs:
       versionSpec: '3.x'
       addToPath: true
 
- powershell: |
+  - script: |
       # Create a directory for dbt
       New-Item -ItemType Directory -Force -Path C:\dbt
 
