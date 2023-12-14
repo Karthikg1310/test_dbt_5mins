@@ -1,12 +1,15 @@
 name: Run dbt Models
 
-on: 
+on:
+  push:
+    branches:
+      - main
   schedule:
-    - cron: '*/5 * * * *'
+    - cron: '*/5 * * * *'  # Schedule to run every 5 minutes
 
 jobs:
   run-dbt:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
       - name: Checkout Repository
