@@ -45,11 +45,9 @@ jobs:
     displayName: 'Install dbt and dependencies'
 
   - powershell: |
-      # Install additional dependencies for snowflake-connector-python
-      pip install pyopenssl ndg-httpsclient pyasn1
       # Install snowflake-connector-python with pre-built wheel
       pip install snowflake-connector-python --only-binary :all:
-    displayName: 'Install snowflake-connector-python and dependencies'
+    displayName: 'Install snowflake-connector-python'
 
   - script: |
       dbt deps --profiles-dir $(Build.Repository.LocalPath)/dfz --project-dir $(Build.Repository.LocalPath)/dfz
